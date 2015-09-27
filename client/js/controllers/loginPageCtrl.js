@@ -56,7 +56,7 @@ angular
                         };
 
                     user.login(data).then(function () {
-                        $location.path('/');
+                        $location.path('/host');
                     }, function(err) {
                         $scope.invalidCred = true;
                     });

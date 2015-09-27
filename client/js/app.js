@@ -11,8 +11,9 @@ var SimpleChatApp = angular
         'rcForm',
         'HttpLoadInterceptor',
         'UserService',
-        'MainPage',
-        'LoginPage'
+        'ParticipantPage',
+        'LoginPage',
+        'HostPage'
     ])
     .config(['$httpProvider', function($httpProvider) {
         $httpProvider.interceptors.push('httpLoadInterceptor');

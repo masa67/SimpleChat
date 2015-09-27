@@ -8,10 +8,10 @@ angular
 
         return {
             username: undefined,
-            immediateLogin: function() {
+            immediateLogin: function () {
                 var d = $q.defer(), that = this;
 
-                $resource('/user').get(function(data) {
+                $resource('/user').get(function (data) {
                     that.username = data.username;
                     d.resolve();
                 });
@@ -37,7 +37,7 @@ angular
 
                 $resource('/user/logout').get(
                     function () {
-                        that.username = undefined;
+                        that.username = '';
                         d.resolve();
                     },
                     function (err) {

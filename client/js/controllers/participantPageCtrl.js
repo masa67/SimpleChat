@@ -3,9 +3,9 @@
 'use strict';
 
 angular
-    .module('MainPage', [])
-    .controller('MainPageController',
-        ['$scope', 'user', function ($scope, user) {
+    .module('ParticipantPage', [])
+    .controller('ParticipantPageController',
+        ['$scope', '$location', 'user', function ($scope, $location, user) {
 
             $scope.model = {
                 username: user.username,
@@ -16,9 +16,12 @@ angular
                 }
             };
 
-            if (!$scope.model.username) {
-                user.immediateLogin().then(function() {
+            if ($scope.model.username === undefined) {
+                user.immediateLogin().then(function () {
                     $scope.model.username = user.username;
+                    if ($scope.model.username !== undefined) {
+                        $location.path('/host');
+                    }
                 });
             }
         }]);

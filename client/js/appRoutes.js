@@ -9,12 +9,16 @@ angular
 
             $routeProvider
                 .when('/', {
-                    templateUrl: 'main.html',
-                    controller: 'MainPageController'
+                    templateUrl: 'participant.html',
+                    controller: 'ParticipantPageController'
                 })
                 .when('/login', {
                     templateUrl: 'login.html',
                     controller: 'LoginPageController'
+                })
+                .when('/host', {
+                    templateUrl: 'host.html',
+                    controller: 'HostPageController'
                 })
                 .otherwise({
                     redirectTo: '/'
