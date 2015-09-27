@@ -1,0 +1,25 @@
+<div class="navbar navbar-default navbar-inverse">
+    <div class="container-fluid">
+        <div class="navbar-header">
+            <a class="navbar-brand" href="/">SimpleChat - Participant</a>
+        </div>
+        <div class="">
+            <ul class="nav navbar-nav navbar-right">
+                <li>
+                    <a href="/login">Login</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>
+<div class="container">
+    <div>To host a chat, please log in.</div>
+    <br>
+    <div>
+        <p>You may join the following chats:</p>
+        <ul ng-if="model.chats.length" ng-repeat="chat in model.chats">
+            <li>{{chat.username}}</li>
+        </ul>
+        <p ng-if="!model.chats || !model.chats.length">No chats available.</p>
+    </div>
+</div>

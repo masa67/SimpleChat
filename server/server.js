@@ -7,6 +7,7 @@ var path = require('path');
 var bodyParser = require('body-parser');
 
 var users = require('./routes/user');
+var chat = require('./routes/chat');
 
 var app = express();
 
@@ -25,6 +26,7 @@ app.use('/js', express.static(path.join(__dirname, '../client/js')));
 app.use('/vendor', express.static(path.join(__dirname, '../bower_components')));
 
 app.use('/user', users);
+app.use('/chat', chat.router);
 
 /*jslint unparam: true */
 app.get('*', function (req, res) {
@@ -33,4 +35,4 @@ app.get('*', function (req, res) {
 
 /*jslint nomen: false*/
 
-app.listen(8081);
+app.listen(3001);

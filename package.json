@@ -6,8 +6,8 @@
   "dependencies": {
     "body-parser": "",
     "express": "",
-    "express-session": ""
-
+    "express-session": "",
+    "nodejs-websocket": ""
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",

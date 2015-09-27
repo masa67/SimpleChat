@@ -5,23 +5,19 @@
 angular
     .module('ParticipantPage', [])
     .controller('ParticipantPageController',
-        ['$scope', '$location', 'user', function ($scope, $location, user) {
+        ['$scope', '$location', 'user', 'chat', function ($scope, $location, user, chat) {
 
             $scope.model = {
-                username: user.username,
-                clickLogout: function () {
-                    user.logout().then(function () {
-                        $scope.model.username = user.username;
-                    });
-                }
+                chats: undefined
             };
 
-            if ($scope.model.username === undefined) {
-                user.immediateLogin().then(function () {
-                    $scope.model.username = user.username;
-                    if ($scope.model.username !== undefined) {
-                        $location.path('/host');
-                    }
-                });
-            }
+            user.immediateLogin().then(function () {
+                if (user.username !== undefined && user.username !== '') {
+                    $location.path('/host');
+                }
+            });
+
+            chat.list().$promise.then(function (data) {
+                $scope.model.chats = data.chats;
+            });
         }]);

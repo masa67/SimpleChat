@@ -2,6 +2,8 @@
 'use strict';
 
 var express = require('express');
+var chat = require('./chat');
+
 var router = express.Router();
 
 var hour = 3600000;
@@ -29,6 +31,7 @@ router.get('/', function (req, res) {
     if (req.session.username) {
         var u = findUser(req.session.username);
         if (u) {
+            chat.activateHost(req.session.username, hour);
             res.send({
                 username: req.session.username
             });
@@ -38,14 +41,6 @@ router.get('/', function (req, res) {
     res.sendStatus(401);
 });
 
-router.post('/', function (req, res) {
-    if (!findUser(req.body.username)) {
-        res.sendStatus(200);
-    } else {
-        res.sendStatus(401);
-    }
-});
-
 router.post('/login', function (req, res) {
     // Use timeout to demonstrate a delay...
     setTimeout(function () {
@@ -53,6 +48,9 @@ router.post('/login', function (req, res) {
         if (u && u.password === req.body.password) {
             req.session.username = req.body.username;
             req.session.cookie.maxAge = hour;
+
+            chat.activateHost(req.session.username, hour);
+
             res.sendStatus(200);
         } else {
             res.sendStatus(401);

@@ -9,12 +9,13 @@ var SimpleChatApp = angular
         'appRoutes',
         'angularSpinner',
         'rcForm',
+        'ChatService',
         'HttpLoadInterceptor',
         'UserService',
         'ParticipantPage',
         'LoginPage',
         'HostPage'
     ])
-    .config(['$httpProvider', function($httpProvider) {
+    .config(['$httpProvider', function ($httpProvider) {
         $httpProvider.interceptors.push('httpLoadInterceptor');
     }]);
