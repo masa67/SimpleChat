@@ -1,0 +1,54 @@
+<div class="navbar navbar-default navbar-inverse">
+    <div class="container-fluid">
+        <div class="navbar-header">
+            <a class="navbar-brand" href="/">SimpleChat</a>
+        </div>
+        <div class="">
+            <ul class="nav navbar-nav navbar-right">
+                <li>
+                    <a href="/login">Login</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>
+<div id="content" class="container">
+    <div class="row">
+        <div class="col-sm-offset-3 col-md-offset-4 col-sm-6 col-md-4">
+            <fieldset class="login" >
+                <legend>Login</legend>
+                <form rc-submit="clickLogin()" name="LoginForm" novalidate>
+                    <div class="form-group"
+                         ng-class="{ 'has-error': rc.LoginForm.needsAttention(LoginForm.Username)}">
+                        <label for="Username">Username</label>
+                        <input class="form-control"
+                               name="Username"
+                               ng-model="model.username"
+                               type="text"
+                               required>
+                        <span class="help-block"
+                              ng-show="rc.LoginForm.needsAttention(LoginForm.Username)">Required.</span>
+                    </div>
+                    <div class="form-group"
+                         ng-class="{ 'has-error': rc.LoginForm.needsAttention(LoginForm.Password)}">
+                        <label for="Password">Password</label>
+                        <input class="form-control"
+                               name="Password"
+                               ng-model="model.password"
+                               type="password"
+                               required>
+                        <span class="help-block"
+                              ng-show="rc.LoginForm.needsAttention(LoginForm.Password)">Required.</span>
+                    </div>
+                    <div class="bt-alert invalid-cred"
+                         ng-show="invalidCred">Invalid Username or Password.</div>
+                    <div><span us-spinner spinner-key="spinner-1"></span></div>
+                    <button class="submit-login-form btn btn-primary"
+                            name="Submit"
+                            ng-disabled="ajaxOn"
+                            type="submit">Login</button>
+                </form>
+            </fieldset>
+        </div>
+    </div>
+</div>
