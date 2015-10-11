@@ -59,6 +59,7 @@ router.post('/login', function (req, res) {
 });
 
 router.get('/logout', function (req, res) {
+    chat.deactivateHost(req.session.username);
     req.session.destroy();
     res.sendStatus(200);
 });

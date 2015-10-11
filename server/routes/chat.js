@@ -23,6 +23,17 @@ function activateHost(username, duration) {
     });
 }
 
+function deactivateHost(username) {
+    var i;
+
+    for (i = 0; i < chats.length; i += 1) {
+        if (chats[i].username === username) {
+            chats.splice(i, 1);
+            return;
+        }
+    }
+}
+
 /*jslint unparam: true */
 router.get('/', function (req, res) {
     res.send({ chats: chats });
@@ -38,5 +49,6 @@ var server = ws.createServer(function (conn) {
 
 module.exports = {
     router: router,
-    activateHost: activateHost
+    activateHost: activateHost,
+    deactivateHost: deactivateHost
 };
