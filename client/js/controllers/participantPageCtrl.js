@@ -17,7 +17,10 @@ angular
                 }
             });
 
-            chat.list().$promise.then(function (data) {
-                $scope.model.chats = data.chats;
+            chat.connect({
+                onChats: function (data) {
+                    $scope.model.chats = data.chats;
+                    $scope.$apply();
+                }
             });
         }]);

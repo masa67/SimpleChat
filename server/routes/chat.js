@@ -2,11 +2,9 @@
 'use strict';
 
 var express = require('express');
-var ws = require('nodejs-websocket');
+var socket = require('socket.io');
 
-var router = express.Router();
-
-var chats = [];
+var chats = [], io, sockets = [], emitChats;
 
 function activateHost(username, duration) {
     var i, expire = new Date().getTime() + duration;
@@ -21,6 +19,8 @@ function activateHost(username, duration) {
         username: username,
         expire: expire
     });
+
+    emitChats();
 }
 
 function deactivateHost(username) {
@@ -29,26 +29,36 @@ function deactivateHost(username) {
     for (i = 0; i < chats.length; i += 1) {
         if (chats[i].username === username) {
             chats.splice(i, 1);
-            return;
+            break;
         }
     }
+
+    emitChats();
 }
 
-/*jslint unparam: true */
-router.get('/', function (req, res) {
-    res.send({ chats: chats });
-});
+var emitChats = function (socket) {
+    var i;
 
-/*
-var server = ws.createServer(function (conn) {
-    conn.on('text', function (str) {
+    if (socket) {
+        socket.emit('chats', {chats: chats});
+    } else {
+        for (i = 0; i < sockets.length; i += 1) {
+            sockets[i].emit('chats', {chats: chats});
+        }
+    }
+};
 
+function initChat(server) {
+    io = require('socket.io')(server);
+
+    io.on('connection', function (socket) {
+        sockets.push(socket);
+        emitChats(socket);
     });
-}).listen(3002);
-*/
+}
 
 module.exports = {
-    router: router,
+    initChat: initChat,
     activateHost: activateHost,
     deactivateHost: deactivateHost
 };

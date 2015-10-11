@@ -1,14 +1,17 @@
 
-/*global angular */
+/*global angular, io */
 'use strict';
 
 angular
     .module('ChatService', [])
-    .factory('chat', ['$resource', function ($resource) {
+    .factory('chat', [function () {
 
         return {
-            list: function () {
-                return $resource('/chat').get();
+            connect: function (client) {
+                var socket = io.connect('http://localhost:3001');
+                socket.on('chats', function (data) {
+                    client.onChats(data);
+                });
             }
         };
     }]);
